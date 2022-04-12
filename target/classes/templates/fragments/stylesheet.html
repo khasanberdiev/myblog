@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:fragment="stylesheet">
+            <link rel="icon" th:href="@{/backoffice/assets/img/icon.ico}" type="image/x-icon"/>
+        
+        <!-- Fonts and icons -->
+
+        <script th:src="@{/backoffice/assets/js/plugin/webfont/webfont.min.js}"></script>
+        <script>
+            WebFont.load({
+                google: {"families":["Lato:300,400,700,900"]},
+                custom: {"families":["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../assets/css/fonts.min.css']},
+                active: function() {
+                    sessionStorage.fonts = true;
+                }
+            });
+        </script>
+
+        <!-- CSS Files -->
+
+
+        
+        <link rel="stylesheet" th:href="@{/backoffice/assets/css/bootstrap.min.css}">
+        <link rel="stylesheet" th:href="@{/backoffice/assets/css/atlantis.min.css}">
+        <link rel="stylesheet" th:href="@{/backoffice/assets/css/atlantis.min.css}">
+
+
+
+        <!-- CSS Just for demo purpose, don't include it in your project -->
+        <link rel="stylesheet" th:href="@{/backoffice/assets/css/fonts.min.css}">
+    </div>
+    </body>
+</html>

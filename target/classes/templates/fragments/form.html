@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="form">		
+
+<form th:action="@{/}" th:method="Patch" th:object="${user}">
+														<div class="row">
+															<div class="col-sm-12">
+																<div class="form-group form-group-default">
+																	<label>First Name</label>
+																	<input id="addName" type="text" th:field="*{firstName}" class="form-control" placeholder="First Name">
+																</div>
+															</div>
+															<div class="col-sm-12">
+																<div class="form-group form-group-default">
+																	<label>Last Name</label>
+																	<input id="addName" type="text" th:field="*{lastName}" class="form-control" placeholder="Last Name">
+																</div>
+															</div>
+
+															<div class="col-sm-12">
+																<div class="form-group form-group-default">
+																	<label>Email</label>
+																	<input id="addName" type="text" th:field="*{email}" class="form-control" placeholder="Email">
+																</div>
+															</div>
+															<div class="col-sm-12">
+																<div class="form-group form-group-default">
+																	<label>Username</label>
+																	<input id="addName" type="text" th:field="*{userName}" class="form-control" placeholder="Username">
+																</div>
+															</div>
+															<div class="col-sm-12">
+																<div class="form-group form-group-default">
+																	<label>Password</label>
+																	<input id="addName" type="password" th:field="*{password}" class="form-control" placeholder="Password">
+																</div>
+															</div>
+
+															
+															
+														</div>
+														<div class="modal-footer no-bd">
+															<button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
+															<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+														</div>
+													</form>
+
+</div>
+</body>
+</html>

@@ -3,6 +3,8 @@ package com.blog.myblog.services;
 import com.blog.myblog.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
+
 import com.blog.myblog.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,10 @@ public class UserService {
         
     }
 
+    public Optional<User> findById(Long id){
+        return userRespository.findById(id);
+    }
+
     public void deleteUser(Long id){
         userRespository.deleteById(id);
     }
@@ -28,8 +34,6 @@ public class UserService {
         userRespository.save(user);
     }
 
-    // public List<User> userList(){
-    //     return (List<User>) userRespository.findAll();
-    // }
+
     
 }
