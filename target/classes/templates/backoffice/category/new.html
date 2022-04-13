@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Add New Category</title>
+		<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+		<div th:insert="fragments/stylesheet::stylesheet"></div>
+	</head>
+<body>
+	<div class="wrapper">
+		<!-- main header -->
+		<div th:insert="fragments/header::header">
+		</div>
+		<!-- end main header -->
+
+		<!-- Sidebar -->
+		<div th:insert="fragments/sidebar :: sidebar"></div>		
+		<!-- End Sidebar -->
+
+		<div class="main-panel">
+			<div class="content">
+				<div th:insert="fragments/panel-header::panel-header">
+
+				</div>
+				
+				<div class="page-inner mt--5">
+					
+					
+					<div class="row row-card-no-pd">
+						<div class="col-md-12">
+							<div class="card">
+								
+								<div class="col-md-6">
+								<form th:action="@{/category/save}" th:method="POST" th:object="${category}">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="form-group form-group-default">
+												<label>Category Name</label>
+												<input id="addName" type="text" th:field="*{categoryName}" class="form-control" placeholder="First Name">
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<div class="form-group form-group-default">
+												<label>Category Description</label>
+												<input id="addName" type="text" th:field="*{categoryDescription}" class="form-control" placeholder="Last Name">
+											</div>
+										</div>
+						
+										
+									</div>
+									<div class="modal-footer no-bd">
+										<button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+									</div>
+								</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					
+				
+				</div>
+			</div>
+			
+
+			
+
+		</div>
+		
+	
+	</div>
+	<!--   Core JS Files   -->
+	<div th:insert="fragments/scripts::scripts">
+	</div>
+	
+</body>
+</html>

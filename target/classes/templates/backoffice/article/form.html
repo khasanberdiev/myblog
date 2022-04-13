@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Add New User</title>
+		<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+		<div th:insert="fragments/stylesheet::stylesheet"></div>
+	</head>
+<body>
+	<div class="wrapper">
+		<!-- main header -->
+		<div th:insert="fragments/header::header">
+		</div>
+		<!-- end main header -->
+
+		<!-- Sidebar -->
+		<div th:insert="fragments/sidebar :: sidebar"></div>		
+		<!-- End Sidebar -->
+
+		<div class="main-panel">
+			<div class="content">
+				<div th:insert="fragments/panel-header::panel-header">
+
+				</div>
+				
+				<div class="page-inner mt--5">
+					
+					
+					<div class="row row-card-no-pd">
+						<div class="col-md-12">
+							<div class="card">
+								
+								<div class="col-md-6">
+								<form th:action="@{/article/save}" th:method="POST" th:object="${article}">
+									<div class="row">
+										<div class="col-sm-12">
+											<div class="form-group form-group-default">
+												<label>Title</label>
+												<input id="addName" type="text" th:field="*{title}" class="form-control" placeholder="First Name">
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<div class="form-group form-group-default">
+												<label>Body</label>
+												<textarea class="form-control" th:field="*{body}" id="comment" rows="5">
+												</textarea>
+													</div>
+										</div>
+					
+										<div class="col-sm-12">
+											<div class="form-group form-group-default">
+												<label>tags</label>
+												<input id="addName" type="text" th:field="*{tags}" class="form-control" placeholder="Tags">
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<div class="form-group form-group-default">
+												<label>Author</label>
+												<input id="addName" type="text" th:field="*{author}" class="form-control" placeholder="Author">
+											</div>
+										</div>
+										<div class="col-sm-12">
+											<div class="form-group form-floating-label">
+												<select class="form-control input-border-bottom" id="selectFloatingLabel" required="">
+													
+													<option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+													
+													
+												</select>
+												<label for="selectFloatingLabel" class="placeholder">Select Category</label>
+											</div>
+										</div>
+					
+										
+										
+									</div>
+									<div class="modal-footer no-bd">
+										<button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+									</div>
+								</form>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					
+				
+				</div>
+			</div>
+			
+
+			
+
+		</div>
+		
+	
+	</div>
+	<!--   Core JS Files   -->
+	<div th:insert="fragments/scripts::scripts">
+	</div>
+	
+</body>
+</html>
