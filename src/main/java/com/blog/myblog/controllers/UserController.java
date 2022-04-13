@@ -71,8 +71,6 @@ public class UserController {
     @GetMapping("/edit/{id}")
     public String showUpdateForm(@PathVariable("id") long id, Model model){
         User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-   
-        System.out.println("555555555555555555555");
         model.addAttribute("user", user);
         return "backoffice/user/update";
     }
@@ -84,6 +82,14 @@ public class UserController {
             return "/update";
         }
         userService.saveUser(user);
+        return "redirect:/user/list";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") long id, Model model){
+        User user=userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        userService.delete(user.getId());
+
         return "redirect:/user/list";
     }
 

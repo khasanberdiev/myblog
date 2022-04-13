@@ -33,6 +33,10 @@ public class Category extends BaseEntity{
     public void setArticles(Set<Article> articles) {
         this.articles = articles;
     }
+    public Category(){
+
+    }
+
     public Category(Long id, LocalDate created,  int status, String categoryName, String categoryDescription) {
         super();
         this.categoryName = categoryName;

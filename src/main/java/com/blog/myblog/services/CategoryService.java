@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.blog.myblog.models.Category;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -25,5 +26,8 @@ public class CategoryService {
     public void saveCategory(Category category){
         categoryRespository.save(category);
     }
-    
+    public Optional<Category> findById(long id){
+        return categoryRespository.findById(id);
+
+    }
 }
