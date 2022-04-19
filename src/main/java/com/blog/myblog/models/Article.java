@@ -37,13 +37,13 @@ public class Article extends BaseEntity {
     
 
    
-    public Article(Long id, LocalDate created,  int status, String title, String body, String tags, Author author) {
+    public Article(Long id, LocalDate created,  int status, String title, String body, String tags, Author author, Category category) {
         this.title = title;
         this.body = body;
         this.tags = tags;
         this.author = author;
         // this.comment = comment;
-        // this.category = category;
+        this.category = category;
     }
 
     public Article(){
@@ -101,12 +101,6 @@ public class Article extends BaseEntity {
     // }
     // public void setComment(Set<Comment> comment) {
     //     this.comment = comment;
-    // }
-    // public Category getCategory() {
-    //     return category;
-    // }
-    // public void setCategory(Category category) {
-    //     this.category = category;
     // }
 
     

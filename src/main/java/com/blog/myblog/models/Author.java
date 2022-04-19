@@ -1,6 +1,5 @@
 package com.blog.myblog.models;
 
-import java.time.LocalDate;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -40,17 +39,25 @@ public class Author extends BaseEntity {
    
 
 
-
+    public Author(){
+        
+    } 
     
 
-    public Author(Long id, LocalDate created,  int status, String firstName, String secondName, String email, String image, String authorInfo) {
+    public Author(
+            @NotNull @Size(min = 1, max = 255, message = "The length of first name must be between 1 and 255") String firstName,
+            @NotNull @Size(min = 1, max = 255, message = "The length of second name must be between 1 and 255") String secondName,
+            @NotNull @Email String email, String image, String authorInfo, Set<Article> articles) {
         this.firstName = firstName;
         this.secondName = secondName;
         this.email = email;
         this.image = image;
         this.authorInfo = authorInfo;
-        // this.articles = articles;
+        this.articles = articles;
     }
+
+
+  
 
     public String getFirstName() {
         return firstName;

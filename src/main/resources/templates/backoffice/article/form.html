@@ -54,16 +54,21 @@
 											</div>
 										</div>
 										<div class="col-sm-12">
-											<div class="form-group form-group-default">
-												<label>Author</label>
-												<input id="addName" type="text" th:field="*{author}" class="form-control" placeholder="Author">
+											<div class="form-group form-floating-label">
+												<select class="form-control input-border-bottom" th:field="*{author}"  required="">
+													
+													<option th:each="a : ${authors}" th:value="${a.id}" th:text="${a.firstName}"></option>
+													
+													
+												</select>
+												<label for="selectFloatingLabel" class="placeholder">Select Author</label>
 											</div>
 										</div>
 										<div class="col-sm-12">
 											<div class="form-group form-floating-label">
-												<select class="form-control input-border-bottom" id="selectFloatingLabel" required="">
+												<select class="form-control input-border-bottom" th:field="*{category}" required="">
 													
-													<option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoryName}"></option>
+													<option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.categoryName}"></option>
 													
 													
 												</select>

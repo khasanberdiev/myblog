@@ -21,10 +21,13 @@ public class ArticleService {
     }
 
     public void saveArticle(Article article){
+
+        System.out.println(article.getAuthor());
+        System.out.println("--------------------");
+        // article.setAuthor(article.getAuthor());
         articleRepository.save(article);
     }
 
-    
 
     
 }

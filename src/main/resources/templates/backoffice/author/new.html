@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>Add New User</title>
+		<title>Add New Author</title>
 		<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 		<div th:insert="fragments/stylesheet::stylesheet"></div>
 	</head>
@@ -31,48 +31,37 @@
 							<div class="card">
 								
 								<div class="col-md-6">
-								<form th:action="@{/article/save}" th:method="POST" th:object="${article}">
+								<form th:action="@{/author/save}" th:method="POST" th:object="${author}">
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="form-group form-group-default">
-												<label>Title</label>
-												<input id="addName" type="text" th:field="*{title}" class="form-control" placeholder="First Name">
+												<label>First Name</label>
+												<input id="addName" type="text" th:field="*{firstName}" class="form-control" placeholder="First Name">
 											</div>
 										</div>
 										<div class="col-sm-12">
 											<div class="form-group form-group-default">
-												<label>Body</label>
-												<textarea class="form-control" th:field="*{body}" id="comment" rows="5">
-												</textarea>
-													</div>
+												<label>Last Name</label>
+												<input id="addName" type="text" th:field="*{secondName}" class="form-control" placeholder="Last Name">
+											</div>
 										</div>
 					
 										<div class="col-sm-12">
 											<div class="form-group form-group-default">
-												<label>tags</label>
-												<input id="addName" type="text" th:field="*{tags}" class="form-control" placeholder="Tags">
+												<label>Email</label>
+												<input id="addName" type="text" th:field="*{email}" class="form-control" placeholder="Email">
 											</div>
 										</div>
 										<div class="col-sm-12">
-											<div class="form-group form-floating-label">
-												<select class="form-control input-border-bottom" th:field="*{author}"  required="">
-													
-													<option th:each="a : ${authors}" th:value="${a.id}" th:text="${a.firstName}"></option>
-													
-													
-												</select>
-												<label for="selectFloatingLabel" class="placeholder">Select Author</label>
+											<div class="form-group form-group-default">
+												<label>Image</label>
+												<input id="addName" type="text" th:field="*{image}" class="form-control" placeholder="Username">
 											</div>
 										</div>
 										<div class="col-sm-12">
-											<div class="form-group form-floating-label">
-												<select class="form-control input-border-bottom" th:field="*{category}" required="">
-													
-													<option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.categoryName}"></option>
-													
-													
-												</select>
-												<label for="selectFloatingLabel" class="placeholder">Select Category</label>
+											<div class="form-group form-group-default">
+												<label>Author Info</label>
+												<input id="addName" type="Author info" th:field="*{authorInfo}" class="form-control" placeholder="Password">
 											</div>
 										</div>
 					
