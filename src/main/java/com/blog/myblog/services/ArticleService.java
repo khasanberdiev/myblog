@@ -16,15 +16,17 @@ public class ArticleService {
         return articles;
     }
 
+    public Article findById(Long id){
+        
+        return articleRepository.findById(id).orElse(null);
+    }
+
     public void deleteArticle(Long id){
         articleRepository.deleteById(id);
     }
 
     public void saveArticle(Article article){
 
-        System.out.println(article.getAuthor());
-        System.out.println("--------------------");
-        // article.setAuthor(article.getAuthor());
         articleRepository.save(article);
     }
 

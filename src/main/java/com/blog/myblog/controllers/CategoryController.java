@@ -35,15 +35,15 @@ public class CategoryController {
     @GetMapping("/new")
     public String add(Model model){
         model.addAttribute("category", new Category());
-        return "backoffice/category/new";
+        return "backoffice/category/categoryForm";
     }
 
-    @PostMapping("/save")
-    public String save(@ModelAttribute("category") @Valid Category category, BindingResult result, Model model ){
+    @PostMapping("/saveOrUpdate")
+    public String saveOrUpdate(@ModelAttribute @Valid Category category, BindingResult result, Model model ){
 
         if(result.hasErrors()){
             model.addAttribute("category", category);
-            return "backoffice/category/new";
+            return "backoffice/category/categoryForm";
         }
         categoryService.saveCategory(category);
 
@@ -55,19 +55,19 @@ public class CategoryController {
     public String edit(@PathVariable("id") long id, Model model){
         Category category=categoryService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("category", category);
-        return "backoffice/category/edit";
+        return "backoffice/category/categoryForm";
     }
 
-    @PostMapping("/update/{id}")
-    public String update(@ModelAttribute("category") Category category, 
-                        BindingResult result, @PathVariable("id") long id ){
-        if(result.hasErrors()){
-            category.setId(id);
-            return "/category/update/{id}";
-        }
-        categoryService.saveCategory(category);
-        return "backoffice/category/update";
-    }
+    // @PostMapping("/update/{id}")
+    // public String update(@ModelAttribute("category") Category category, 
+    //                     BindingResult result, @PathVariable("id") long id ){
+    //     if(result.hasErrors()){
+    //         category.setId(id);
+    //         return "/category/update/{id}";
+    //     }
+    //     categoryService.saveCategory(category);
+    //     return "backoffice/category/update";
+    // }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") long id){

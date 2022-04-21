@@ -32,6 +32,7 @@
 								
 								<div class="col-md-6">
 								<form th:action="@{/article/save}" th:method="POST" th:object="${article}">
+									<input type="hidden" th:field="*{id}">
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="form-group form-group-default">
