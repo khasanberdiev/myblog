@@ -49,7 +49,7 @@ public class ArticleController {
     @GetMapping("/edit/{id}")
     public String editArticle(@PathVariable("id") Long id, Model model){
         Article article=articleService.findById(id);
-        Category category=categoryService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        Category category=categoryService.findById(id);
         Author author=authorService.findById(id);
         model.addAttribute("article", article);
         model.addAttribute("categories", category);
@@ -62,6 +62,12 @@ public class ArticleController {
         article.setAuthor(article.getAuthor());
         article.setCategory(article.getCategory());
         articleService.saveArticle(article);
+        return "redirect:/article/";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String delete(Long id){
+        articleService.deleteArticle(id);
         return "redirect:/article/";
     }
 

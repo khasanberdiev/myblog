@@ -1,6 +1,8 @@
 package com.blog.myblog.services;
 import java.util.List;
+import java.util.Optional;
 
+import com.blog.myblog.exceptions.NotFoundException;
 import com.blog.myblog.models.Article;
 import com.blog.myblog.repositories.ArticleRepository;
 
@@ -17,8 +19,12 @@ public class ArticleService {
     }
 
     public Article findById(Long id){
+        Optional<Article> findArticleById=articleRepository.findById(id);
+        if (findArticleById.isPresent()){
+            throw new NotFoundException("Not Found");
+        }
         
-        return articleRepository.findById(id).orElse(null);
+        return findArticleById.get();
     }
 
     public void deleteArticle(Long id){

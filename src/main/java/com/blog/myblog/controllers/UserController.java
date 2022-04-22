@@ -58,7 +58,7 @@ public class UserController {
 
 
     @PostMapping("/save")
-    public String save(@Valid User user, BindingResult result, Model model){
+    public String saveOrUpdate(@Valid User user, BindingResult result, Model model){
         if(result.hasErrors()){
             return "user/addUser";
 

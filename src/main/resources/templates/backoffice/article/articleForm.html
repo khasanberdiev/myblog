@@ -76,6 +76,18 @@
 												<label for="selectFloatingLabel" class="placeholder">Select Category</label>
 											</div>
 										</div>
+
+										<div class="col-sm-12">
+											<div class="form-group form-floating-label">
+												<select class="form-control input-border-bottom" th:field="*{status}" required="">
+													
+													<option th:each="c : ${T(com.blog.myblog.models.Status).values()}" th:value="${c.name()}" th:text="${c.name()}"></option>
+													
+													
+												</select>
+												<label for="selectFloatingLabel" class="placeholder">Status</label>
+											</div>
+										</div>
 					
 										
 										

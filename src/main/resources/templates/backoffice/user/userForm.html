@@ -31,23 +31,18 @@
 							<div class="card">
 								
 								<div class="col-md-6">
-									<form th:action="@{/user/update/{id}(id=${user.id})}"  
-							
-									th:object="${user}" 
-									method="post">
+								<form th:action="@{/user/save}" th:method="POST" th:object="${user}">
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="form-group form-group-default">
 												<label>First Name</label>
 												<input id="addName" type="text" th:field="*{firstName}" class="form-control" placeholder="First Name">
-												<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
 											</div>
 										</div>
 										<div class="col-sm-12">
 											<div class="form-group form-group-default">
 												<label>Last Name</label>
 												<input id="addName" type="text" th:field="*{lastName}" class="form-control" placeholder="Last Name">
-												<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
 											</div>
 										</div>
 					
@@ -55,21 +50,30 @@
 											<div class="form-group form-group-default">
 												<label>Email</label>
 												<input id="addName" type="text" th:field="*{email}" class="form-control" placeholder="Email">
-												<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 											</div>
 										</div>
 										<div class="col-sm-12">
 											<div class="form-group form-group-default">
 												<label>Username</label>
 												<input id="addName" type="text" th:field="*{userName}" class="form-control" placeholder="Username">
-												<span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}"></span>
 											</div>
 										</div>
 										<div class="col-sm-12">
 											<div class="form-group form-group-default">
 												<label>Password</label>
 												<input id="addName" type="password" th:field="*{password}" class="form-control" placeholder="Password">
-												<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+											</div>
+										</div>
+
+										<div class="col-sm-12">
+											<div class="form-group form-floating-label">
+												<select class="form-control input-border-bottom" th:field="*{status}" required="">
+													
+													<option th:each="c : ${T(com.blog.myblog.models.Status).values()}" th:value="${c.name()}" th:text="${c.name()}"></option>
+													
+													
+												</select>
+												<label for="selectFloatingLabel" class="placeholder">Status</label>
 											</div>
 										</div>
 					
@@ -77,8 +81,8 @@
 										
 									</div>
 									<div class="modal-footer no-bd">
-										<button type="submit" id="addRowButton" class="btn btn-primary">Update</button>
-										
+										<button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 									</div>
 								</form>
 								</div>

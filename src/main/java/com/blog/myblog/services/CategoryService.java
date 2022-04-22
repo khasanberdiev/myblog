@@ -4,6 +4,8 @@ import com.blog.myblog.repositories.CategoryRespository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.blog.myblog.exceptions.NotFoundException;
 import com.blog.myblog.models.Category;
 import java.util.List;
 import java.util.Optional;
@@ -28,8 +30,12 @@ public class CategoryService {
     public void saveCategory(Category category){
         categoryRespository.save(category);
     }
-    public Optional<Category> findById(long id){
-        return categoryRespository.findById(id);
+    public Category findById(long id){
+        Optional<Category> categoryFindById=categoryRespository.findById(id);
+        if(!categoryFindById.isPresent()){
+            throw new NotFoundException("Category Not Found");
+        }
+        return categoryFindById.get();
 
     }
 }

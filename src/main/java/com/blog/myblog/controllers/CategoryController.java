@@ -53,7 +53,7 @@ public class CategoryController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") long id, Model model){
-        Category category=categoryService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        Category category=categoryService.findById(id);
         model.addAttribute("category", category);
         return "backoffice/category/categoryForm";
     }
@@ -71,10 +71,8 @@ public class CategoryController {
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") long id){
-        Category category=categoryService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
-        
+        Category category=categoryService.findById(id);
         categoryService.deleteCategoryById(category.getId());
-
         return "redirect:/category/list";
     }
 

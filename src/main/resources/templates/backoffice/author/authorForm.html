@@ -32,6 +32,7 @@
 								
 								<div class="col-md-6">
 								<form th:action="@{/author/save}" th:method="POST" th:object="${author}">
+									<input type="hidden" th:field="*{id}">
 									<div class="row">
 										<div class="col-sm-12">
 											<div class="form-group form-group-default">
@@ -64,13 +65,25 @@
 												<input id="addName" type="Author info" th:field="*{authorInfo}" class="form-control" placeholder="Password">
 											</div>
 										</div>
+
+										<div class="col-sm-12">
+											<div class="form-group form-floating-label">
+												<select class="form-control input-border-bottom" th:field="*{status}" required="">
+													
+													<option th:each="c : ${T(com.blog.myblog.models.Status).values()}" th:value="${c.name()}" th:text="${c.name()}"></option>
+													
+													
+												</select>
+												<label for="selectFloatingLabel" class="placeholder">Status</label>
+											</div>
+										</div>
 					
 										
 										
 									</div>
 									<div class="modal-footer no-bd">
-										<button type="submit" id="addRowButton" class="btn btn-primary">Add</button>
-										<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+										<button type="submit" id="addRowButton" class="btn btn-primary">Save</button>
+										
 									</div>
 								</form>
 								</div>

@@ -14,19 +14,19 @@ public class BaseEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate created;
-    private int status;
+    private Status status;
 
-    public int getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
     public BaseEntity(){
         this.created=LocalDate.now();
-        this.status=0;
+        // this.status=;
     }
 
     public LocalDate getCreated(){
