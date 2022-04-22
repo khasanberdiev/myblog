@@ -20,7 +20,7 @@ public class ArticleService {
 
     public Article findById(Long id){
         Optional<Article> findArticleById=articleRepository.findById(id);
-        if (findArticleById.isPresent()){
+        if (!findArticleById.isPresent()){
             throw new NotFoundException("Not Found");
         }
         

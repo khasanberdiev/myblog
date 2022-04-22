@@ -34,51 +34,93 @@
 								<form th:action="@{/article/save}" th:method="POST" th:object="${article}">
 									<input type="hidden" th:field="*{id}">
 									<div class="row">
+										<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+											<p>Please Correct Errors Below</p>
+										</div>
 										<div class="col-sm-12">
+											<!-- <div class="col-md-3 form-group" th:class="${#fields.hasErrors('title')}
+                                							? 'col-md-3 form-group has-error' : 'col-md-3 form-group'"> -->
 											<div class="form-group form-group-default">
 												<label>Title</label>
-												<input id="addName" type="text" th:field="*{title}" class="form-control" placeholder="First Name">
+												<input id="addName" type="text" th:field="*{title}" class="form-control" placeholder="First Name" th:errorclass="has-error">
+												<span class="help-block" th:if="${#fields.hasErrors('title')}">
+													<ul>
+														<li th:each="err : ${#fields.errors('title')}" th:text="${err}"/>
+													</ul>
+												</span>
 											</div>
 										</div>
 										<div class="col-sm-12">
 											<div class="form-group form-group-default">
+												<!-- <div class="col-md-3 form-group" th:class="${#fields.hasErrors('body')}
+                                							? 'col-md-3 form-group has-error' : 'col-md-3 form-group'"> -->
 												<label>Body</label>
 												<textarea class="form-control" th:field="*{body}" id="comment" rows="5">
+													<span class="help-block" th:if="${#fields.hasErrors('body')}">
+														<ul>
+															<li th:each="err : ${#fields.errors('body')}" th:text="${err}"/>
+														</ul>
+													</span>
 												</textarea>
 													</div>
 										</div>
 					
 										<div class="col-sm-12">
+											<!-- <div th:class="${#fields.hasErrors('tags')}"> -->
 											<div class="form-group form-group-default">
+												
 												<label>tags</label>
 												<input id="addName" type="text" th:field="*{tags}" class="form-control" placeholder="Tags">
+												<span class="help-block" th:if="${#fields.hasErrors('tags')}">
+													<ul>
+														<li th:each="err : ${#fields.errors('tags')}" th:text="${err}"/>
+													</ul>
+												</span>
 											</div>
 										</div>
 										<div class="col-sm-12">
+											<!-- <div class="col-md-3 form-group" th:class="${#fields.hasErrors('author')}
+                                							? 'col-md-3 form-group has-error' : 'col-md-3 form-group'"> -->
 											<div class="form-group form-floating-label">
+												
 												<select class="form-control input-border-bottom" th:field="*{author}"  required="">
 													
 													<option th:each="a : ${authors}" th:value="${a.id}" th:text="${a.firstName}"></option>
 													
 													
 												</select>
+												
 												<label for="selectFloatingLabel" class="placeholder">Select Author</label>
 											</div>
+											<span class="help-block" th:if="${#fields.hasErrors('author')}">
+												<ul>
+													<li th:each="err : ${#fields.errors('author')}" th:text="${err}"/>
+												</ul>
+											</span>
 										</div>
 										<div class="col-sm-12">
 											<div class="form-group form-floating-label">
+												<!-- <div class="col-md-3 form-group" th:class="${#fields.hasErrors('category')}
+                                							? 'col-md-3 form-group has-error' : 'col-md-3 form-group'"> -->
 												<select class="form-control input-border-bottom" th:field="*{category}" required="">
 													
 													<option th:each="c : ${categories}" th:value="${c.id}" th:text="${c.categoryName}"></option>
 													
 													
 												</select>
+												
 												<label for="selectFloatingLabel" class="placeholder">Select Category</label>
 											</div>
+											<span class="help-block" th:if="${#fields.hasErrors('category')}">
+												<ul>
+													<li th:each="err : ${#fields.errors('category')}" th:text="${err}"/>
+												</ul>
+											</span>
 										</div>
 
 										<div class="col-sm-12">
 											<div class="form-group form-floating-label">
+												
 												<select class="form-control input-border-bottom" th:field="*{status}" required="">
 													
 													<option th:each="c : ${T(com.blog.myblog.models.Status).values()}" th:value="${c.name()}" th:text="${c.name()}"></option>
