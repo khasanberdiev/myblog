@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.blog.myblog.exceptions.NotFoundException;
 import com.blog.myblog.models.Category;
 import com.blog.myblog.services.CategoryService;
 
@@ -11,11 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.http.HttpStatus;
 
 @Controller
 @RequestMapping("/category")
@@ -74,6 +79,15 @@ public class CategoryController {
         Category category=categoryService.findById(id);
         categoryService.deleteCategoryById(category.getId());
         return "redirect:/category/list";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound(){
+        ModelAndView modelAndView=new ModelAndView();
+        modelAndView.setViewName("backoffice/404Error");
+        return modelAndView;
+        
     }
 
 
