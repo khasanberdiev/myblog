@@ -36,13 +36,12 @@ public class CategoryController {
     @GetMapping("/list")
     public String index(Model model){
       
-        // return sortedIndexPage(model, 1);
-        return sortedIndexPage(model, 1,  "id", "desc");
+        return sortedIndexPage(model, 1,  "id", "desc", 5);
     }
 
     @GetMapping("/page/{pageNumber}")
-    public String sortedIndexPage(Model model, @PathVariable("pageNumber") int pageNumber, @RequestParam("sortField") String sortField, @RequestParam("sortDirection") String sortDirection){
-        int pageSize=3;
+    public String sortedIndexPage(Model model, @PathVariable("pageNumber") int pageNumber, @RequestParam("sortField") String sortField, @RequestParam("sortDirection") String sortDirection, @RequestParam("pageSize") int pageSize){
+        // int pageSize=3;
         Page<Category> page=categoryService.categoryList(pageNumber, pageSize, sortField, sortDirection);
         List<Category> categoryList= page.getContent();
         model.addAttribute("category", categoryList);
