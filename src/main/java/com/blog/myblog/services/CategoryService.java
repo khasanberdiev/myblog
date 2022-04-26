@@ -20,8 +20,10 @@ public class CategoryService {
     @Autowired
     private CategoryRespository categoryRespository;
     
-    public Page<Category> categoryList(int pageNumber, int pageSize){
-        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize );
+    public Page<Category> categoryList(int pageNumber, int pageSize, String sortField, String sortDirection){
+        Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+            Sort.by(sortField).descending();
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
         return categoryRespository.findAll(pageable);
     }
 

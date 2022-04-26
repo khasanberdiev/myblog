@@ -9,6 +9,8 @@ import com.blog.myblog.services.CategoryService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+// import org.springframework.data.repository.query.Param;
+// import org.springframework.data.web.PageableDefault;
 // import org.springframework.data.domain.Sort;
 // import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -33,23 +36,23 @@ public class CategoryController {
     @GetMapping("/list")
     public String index(Model model){
       
-        return sortedIndexPage(model, 1);
-        // return sortedIndexPage(model, 1,  "categoryName", "asc");
+        // return sortedIndexPage(model, 1);
+        return sortedIndexPage(model, 1,  "id", "desc");
     }
 
     @GetMapping("/page/{pageNumber}")
-    public String sortedIndexPage(Model model, @PathVariable("pageNumber") int pageNumber){
+    public String sortedIndexPage(Model model, @PathVariable("pageNumber") int pageNumber, @RequestParam("sortField") String sortField, @RequestParam("sortDirection") String sortDirection){
         int pageSize=3;
-        Page<Category> page=categoryService.categoryList(pageNumber, pageSize);
+        Page<Category> page=categoryService.categoryList(pageNumber, pageSize, sortField, sortDirection);
         List<Category> categoryList= page.getContent();
         model.addAttribute("category", categoryList);
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("totalElements", page.getTotalElements());
-        // model.addAttribute("sortField", sortField);
-        // model.addAttribute("sortDir", sortDirection);
-        // model.addAttribute("reverseSortDir", sortDirection.equals("asc") ? "desc" : "asc");
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("reverseSortDir", sortDirection.equals("desc") ? "asc" : "desc");
 
         return "backoffice/category/index";
     }
