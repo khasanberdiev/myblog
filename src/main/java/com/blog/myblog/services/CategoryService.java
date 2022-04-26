@@ -3,12 +3,15 @@ package com.blog.myblog.services;
 import com.blog.myblog.repositories.CategoryRespository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 
 import com.blog.myblog.exceptions.NotFoundException;
 import com.blog.myblog.models.Category;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -17,11 +20,17 @@ public class CategoryService {
     @Autowired
     private CategoryRespository categoryRespository;
     
-    public List<Category> categoryList(){
-        List<Category> categories=(List<Category>) categoryRespository.findAll();
-        return categories; 
+    public Page<Category> categoryList(int pageNumber, int pageSize){
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize );
+        return categoryRespository.findAll(pageable);
     }
 
+
+    public Page<Category> categoryLists(int pageNumber, int pageSize, String sortField, String sortDirection){
+        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, 
+                    sortDirection.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
+        return categoryRespository.findAll(pageable);
+    }
     
 
     public void deleteCategoryById(Long id){

@@ -40,7 +40,7 @@ public class ArticleController {
     @GetMapping("/new")
     public String addArticle(Model model){
         model.addAttribute("authors", authorService.authorList());
-        model.addAttribute("categories", categoryService.categoryList());
+        // model.addAttribute("categories", categoryService.categoryList());
         model.addAttribute("article", new Article());
         return "backoffice/article/articleForm";
     }
