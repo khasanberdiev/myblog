@@ -120,15 +120,22 @@
 												<div class="dataTables_paginate paging_simple_numbers" id="add-row_paginate">
 													<ul class="pagination">
 
-														<li th:if="${currentPage > 1}" class="paginate_button page-item active">
+														<li th:if="${currentPage > 2}" class="paginate_button page-item active">
 															<a  href="/category/page/1" aria-controls="add-row" data-dt-idx="1" tabindex="0" class="page-link">
 																First
 															</a>
 														</li>
+
+														
 																												
 														<li th:if="${currentPage > 1}" class="paginate_button page-item previous active" id="add-row_previous">
 															<a th:href="@{'/category/page/' + ${currentPage - 1}}" aria-controls="add-row" data-dt-idx="0" tabindex="0" class="page-link">
 																Previous
+															</a>
+														</li>
+														<li th:if="${currentPage > 1}" class="paginate_button page-item disabled">
+															<a  href="" aria-controls="add-row" data-dt-idx="1" tabindex="0" class="page-link">
+																[[${currentPage}]]
 															</a>
 														</li>
 													
