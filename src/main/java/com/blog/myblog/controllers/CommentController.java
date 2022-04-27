@@ -1,11 +1,14 @@
 package com.blog.myblog.controllers;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import com.blog.myblog.models.Comment;
 import com.blog.myblog.services.CommentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +25,28 @@ public class CommentController {
 
     @GetMapping("")
     public String index(Model model){
-        model.addAttribute("comment", commentService.getAll());
+        
+        return sortedIndexPage(model, 1, 2, "id", "desc");
+    }
+
+
+    @GetMapping("/page/{pageNumber}")
+    public String sortedIndexPage(Model model, int pageNumber, int pageSize, String sortField, String sortDirection){
+        
+        Page<Comment> page=commentService.commentPageableList(pageNumber, pageSize, sortField, sortDirection);
+        List<Comment> comments=page.getContent();
+
+        model.addAttribute("comments", comments);
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("reverseSortDir", sortDirection.equals("desc") ? "asc" : "desc");
+
         return "backoffice/comment/index";
+
     }
 
     @GetMapping("/edit/{id}")

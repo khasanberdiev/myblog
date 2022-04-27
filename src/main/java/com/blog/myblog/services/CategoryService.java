@@ -12,6 +12,8 @@ import org.springframework.data.domain.Sort;
 
 import com.blog.myblog.exceptions.NotFoundException;
 import com.blog.myblog.models.Category;
+
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,21 +22,18 @@ public class CategoryService {
     @Autowired
     private CategoryRespository categoryRespository;
     
-    public Page<Category> categoryList(int pageNumber, int pageSize, String sortField, String sortDirection){
+    public Page<Category> categoryPageableList(int pageNumber, int pageSize, String sortField, String sortDirection){
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
             Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
         return categoryRespository.findAll(pageable);
     }
 
-
-    public Page<Category> categoryLists(int pageNumber, int pageSize, String sortField, String sortDirection){
-        Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, 
-                    sortDirection.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
-        return categoryRespository.findAll(pageable);
+    public List<Category> categoryList(){
+        return (List<Category>) categoryRespository.findAll();
     }
-    
 
+   
     public void deleteCategoryById(Long id){
         categoryRespository.deleteById(id);
     }

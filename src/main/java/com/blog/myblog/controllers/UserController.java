@@ -12,6 +12,7 @@ import com.blog.myblog.services.UserService;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -45,9 +46,26 @@ public class UserController {
 
     @GetMapping("/list")
     public String showUserList(Model model){
-        List<User> listUsers=userService.userList();
-        model.addAttribute("userList", listUsers);
+       return sortedIndexPage(model, 1, 2, "id", "desc");
+    }
+
+    @GetMapping("/page/{pageNumber}")
+    public String sortedIndexPage(Model model, int pageNumber, int pageSize, String sortField, String sortDirection){
+        
+        Page<User> page=userService.userPageableList(pageNumber, pageSize, sortField, sortDirection);
+        List<User> users=page.getContent();
+
+        model.addAttribute("userList", users);
+        model.addAttribute("currentPage", pageNumber);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("pageSize", pageSize);
+        model.addAttribute("totalElements", page.getTotalElements());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDirection", sortDirection);
+        model.addAttribute("reverseSortDir", sortDirection.equals("desc") ? "asc" : "desc");
+
         return "backoffice/user/index";
+
     }
 
     @GetMapping("/create")

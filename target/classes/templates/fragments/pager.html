@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <body>
+        
+        <div th:fragment="pager (field_name)" class="dataTables_paginate paging_simple_numbers" id="add-row_paginate">
+            <ul class="pagination">
+
+                <li th:if="${currentPage > 2}" class="paginate_button page-item active">
+                    <a  th:href="@{'/'+${field_name}+'/page/1' + '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}+'&pageSize='+${pageSize}}" aria-controls="add-row" data-dt-idx="1" tabindex="0" class="page-link">
+                        First
+                    </a>
+                </li>
+
+                                                                                  
+                <li th:if="${currentPage > 1}" class="paginate_button page-item previous active" id="add-row_previous">
+                    <a th:href="@{'/'+${field_name}+'/page/' + ${currentPage - 1}+ '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}+'&pageSize='+${pageSize}}" aria-controls="add-row" data-dt-idx="0" tabindex="0" class="page-link">
+                        Previous
+                    </a>
+                </li>
+                <li th:if="${currentPage > 1}" class="paginate_button page-item disabled">
+                    <a  href="" aria-controls="add-row" data-dt-idx="1" tabindex="0" class="page-link">
+                        [[${currentPage}]]
+                    </a>
+                </li>
+            
+
+                
+                
+                <li th:if="${currentPage<2}" class="paginate_button page-item  disabled">
+                    <a  href="#" aria-controls="add-row" data-dt-idx="2" tabindex="0" class="page-link  disabled">
+                        1
+                    </a>
+                </li>
+                <li th:unless="${currentPage<2}" class="paginate_button page-item ">
+                    
+                </li>
+                <li th:if="${currentPage<totalPages}" class="paginate_button page-item next active " id="add-row_next">
+                    <a th:href="@{'/'+${field_name}+'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}+'&pageSize='+${pageSize}}" aria-controls="add-row" data-dt-idx="3" tabindex="0" class="page-link">
+                    Next
+                    </a>
+                </li>
+                
+
+                <li th:if="${currentPage<totalPages}" class="paginate_button page-item next active" id="add-row_next">
+                    <a th:href="@{'/'+${field_name}+'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDirection=' + ${sortDirection}+'&pageSize='+${pageSize}}"  aria-controls="add-row" data-dt-idx="3" tabindex="0" class="page-link">
+                    
+                        Last
+                    </a>
+                </li>
+
+                
+            </ul>
+        </div>
+
+    </body>
+</html>

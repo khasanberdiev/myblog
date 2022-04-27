@@ -1,8 +1,9 @@
 package com.blog.myblog.repositories;
 
-import org.springframework.data.repository.CrudRepository;
 import com.blog.myblog.models.Article;
 
-public interface ArticleRepository extends CrudRepository<Article, Long> {
+import org.springframework.data.repository.PagingAndSortingRepository;
+
+public interface ArticleRepository extends PagingAndSortingRepository<Article, Long> {
     
 }
