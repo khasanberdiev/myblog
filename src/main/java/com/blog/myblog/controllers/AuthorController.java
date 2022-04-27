@@ -5,6 +5,7 @@ import com.blog.myblog.services.AuthorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -33,7 +34,7 @@ public class AuthorController {
 
 
     @GetMapping("/page/{pageNumber}")
-    public String sortedIndexPage(Model model, int pageNumber, int pageSize, String sortField, String sortDirection){
+    public String sortedIndexPage(Model model, @PathVariable("pageNumber") int pageNumber, @Param("pageSize") int pageSize, @Param("sortField") String sortField, @Param("sortDirection") String sortDirection){
         
         Page<Author> page=authorService.authorPageableList(pageNumber, pageSize, sortField, sortDirection);
         List<Author> authors=page.getContent();

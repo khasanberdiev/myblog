@@ -2,6 +2,7 @@ package com.blog.myblog.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,12 +44,10 @@ public class ArticleController {
     }
 
     @GetMapping("/page/{pageNumber}")
-    public String sortedIndexPage(Model model, int pageNumber, int pageSize, String sortField, String sortDirection){
-
+    public String sortedIndexPage(Model model, @PathVariable("pageNumber") int pageNumber, @Param("pageSize") int pageSize, @Param("sortField") String sortField, @Param("sortDirection") String sortDirection){
         
         Page<Article> page=articleService.articlePageableList(pageNumber, pageSize, sortField, sortDirection);
         List<Article> articles=page.getContent();
-
 
         model.addAttribute("articles", articles);
         model.addAttribute("currentPage", pageNumber);

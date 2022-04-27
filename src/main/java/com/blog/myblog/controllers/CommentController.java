@@ -9,6 +9,7 @@ import com.blog.myblog.services.CommentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,7 +24,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping("")
+    @GetMapping({"/", ""})
     public String index(Model model){
         
         return sortedIndexPage(model, 1, 2, "id", "desc");
@@ -31,7 +32,7 @@ public class CommentController {
 
 
     @GetMapping("/page/{pageNumber}")
-    public String sortedIndexPage(Model model, int pageNumber, int pageSize, String sortField, String sortDirection){
+    public String sortedIndexPage(Model model, @PathVariable("pageNumber") int pageNumber, @Param("pageSize") int pageSize, @Param("sortField") String sortField, @Param("sortDirection") String sortDirection){
         
         Page<Comment> page=commentService.commentPageableList(pageNumber, pageSize, sortField, sortDirection);
         List<Comment> comments=page.getContent();

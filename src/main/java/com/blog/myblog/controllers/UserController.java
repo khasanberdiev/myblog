@@ -13,6 +13,7 @@ import com.blog.myblog.services.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -50,7 +51,7 @@ public class UserController {
     }
 
     @GetMapping("/page/{pageNumber}")
-    public String sortedIndexPage(Model model, int pageNumber, int pageSize, String sortField, String sortDirection){
+    public String sortedIndexPage(Model model, @PathVariable("pageNumber") int pageNumber, @Param("pageSize") int pageSize, @Param("sortField") String sortField, @Param("sortDirection") String sortDirection){
         
         Page<User> page=userService.userPageableList(pageNumber, pageSize, sortField, sortDirection);
         List<User> users=page.getContent();
@@ -68,10 +69,10 @@ public class UserController {
 
     }
 
-    @GetMapping("/create")
+    @GetMapping("/new")
     public String newUser(Model model){
         model.addAttribute("user", new User());
-        return "backoffice/user/create-update-form";
+        return "backoffice/user/userForm";
     }
 
 
@@ -90,7 +91,7 @@ public class UserController {
     public String showUpdateForm(@PathVariable("id") long id, Model model){
         User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("user", user);
-        return "backoffice/user/update";
+        return "backoffice/user/userForm";
     }
 
     @PostMapping("/update/{id}")

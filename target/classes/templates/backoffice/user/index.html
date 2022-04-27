@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<title>Atlantis Lite - Bootstrap 4 Admin Dashboard</title>
+		<title>User</title>
 		<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
 		<div th:insert="fragments/stylesheet::stylesheet"></div>
 	</head>
@@ -107,16 +107,25 @@
 									</div>
 
 									<div class="table-responsive">
-										<div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="add-row_length"><label>Show <select name="add-row_length" aria-controls="add-row" class="form-control form-control-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> entries</label></div></div><div class="col-sm-12 col-md-6"><div id="add-row_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="add-row"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="add-row" class="display table table-striped table-hover dataTable" role="grid" aria-describedby="add-row_info">
+										<div id="add-row_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+											<div class="row">
+												<div class="col-sm-12 col-md-6">
+													<div class="dataTables_length" id="add-row_length">
+														<div th:insert="fragments/page-size::page-size (field_name='user')"></div>
+													</div></div><div class="col-sm-12 col-md-6"><div id="add-row_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="add-row"></label></div></div></div><div class="row"><div class="col-sm-12"><table id="add-row" class="display table table-striped table-hover dataTable" role="grid" aria-describedby="add-row_info">
 											<thead>
 												<tr role="row">
-													<th class="sorting_asc" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending" style="width: 193px;">First Name</th>
-													<th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 283px;">Second Name</th>
-													<th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 152px;">Email</th>
-													<th style="width: 127px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Action</th></tr>
+													<tr role="row">
+														<th class="sorting_asc" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" aria-sort="ascending" style="width: 193px;"><a th:href="@{'/comment/page/' + ${currentPage} + '?sortField=Id&sortDirection=' + ${reverseSortDir}+'&pageSize='+${pageSize}}">Id</a></th>
+														<th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 283px;"><a th:href="@{'/user/page/' + ${currentPage} + '?sortField=firstName&sortDirection=' + ${reverseSortDir}+'&pageSize='+${pageSize}}">First Name</a></th>
+														<th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 283px;"><a th:href="@{'/user/page/' + ${currentPage} + '?sortField=secondName&sortDirection=' + ${reverseSortDir}+'&pageSize='+${pageSize}}">Second Name</a></th>
+														<th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 152px;"><a th:href="@{'/user/page/' + ${currentPage} + '?sortField=email&sortDirection=' + ${reverseSortDir}+'&pageSize='+${pageSize}}">Email</a></th>
+														<th style="width: 127px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Action</th>
+													</tr>
 											</thead>
 											<tfoot>
 												<tr>
+													<th rowspan="1" colspan="1">ID</th>
 													<th rowspan="1" colspan="1">First Name</th>
 													<th rowspan="1" colspan="1">Last Name</th>
 													<th rowspan="1" colspan="1">Email</th>
@@ -127,6 +136,7 @@
 											<tbody>
 												<th:block th:each="user:${userList}">
 											<tr role="row" class="odd">
+													<td class="sorting_1">[[${user.id}]]</td>
 													<td class="sorting_1">[[${user.firstName}]]</td>
 													<td>[[${user.lastName}]]</td>
 													<td>[[${user.email}]]</td>
@@ -144,7 +154,17 @@
 											</th:block>
 										
 											</tbody>
-										</table></div></div><div class="row"><div class="col-sm-12 col-md-5"><div class="dataTables_info" id="add-row_info" role="status" aria-live="polite">Showing 1 to 5 of 10 entries</div></div><div class="col-sm-12 col-md-7"><div class="dataTables_paginate paging_simple_numbers" id="add-row_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="add-row_previous"><a href="#" aria-controls="add-row" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="add-row" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="add-row" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item next" id="add-row_next"><a href="#" aria-controls="add-row" data-dt-idx="3" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+										</table></div></div>
+										<div class="row">
+											<div class="col-sm-12 col-md-5"><div class="dataTables_info" id="add-row_info" role="status" aria-live="polite">
+												Showing [[${currentPage}]] to [[${totalPages}]] of [[${pageSize}]] entries
+											</div>
+										</div>
+										<div class="col-sm-12 col-md-7">
+											<div th:insert="fragments/pager::pager(field_name='user')"></div>
+										</div>
+									</div>
+								</div>
 									</div>
 								</div>
 							</div>
