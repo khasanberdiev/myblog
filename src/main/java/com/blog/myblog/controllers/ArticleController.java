@@ -71,6 +71,14 @@ public class ArticleController {
         return "backoffice/article/articleForm";
     }
 
+    @GetMapping("/view/{id}")
+    public String view(Model model, @PathVariable("id") long id){
+        model.addAttribute("authors", authorService.authorList());
+        model.addAttribute("categories", categoryService.categoryList());
+        model.addAttribute("article", articleService.findById(id));
+        return "backoffice/article/view";
+    }
+
 
     @GetMapping("/edit/{id}")
     public String editArticle(@PathVariable("id") Long id, Model model){
@@ -88,7 +96,7 @@ public class ArticleController {
         article.setAuthor(article.getAuthor());
         article.setCategory(article.getCategory());
         articleService.saveArticle(article);
-        return "redirect:/article/";
+        return "redirect:/article/view/"+article.getId();
     }
 
     @GetMapping("/delete/{id}")

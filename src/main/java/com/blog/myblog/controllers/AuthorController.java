@@ -32,6 +32,12 @@ public class AuthorController {
         return sortedIndexPage(model, 1, 2, "id", "desc");
     }
 
+    @GetMapping("/view/{id}")
+    public String view(Model model, @PathVariable("id") long id){
+        model.addAttribute("author", authorService.findById(id));
+        return "backoffice/author/view";
+    }
+
 
     @GetMapping("/page/{pageNumber}")
     public String sortedIndexPage(Model model, @PathVariable("pageNumber") int pageNumber, @Param("pageSize") int pageSize, @Param("sortField") String sortField, @Param("sortDirection") String sortDirection){
@@ -74,7 +80,7 @@ public class AuthorController {
           return "/new";
         }
         authorService.save(author);
-        return "redirect:/article/new";
+        return "redirect:/author/view/"+author.getId();
         
     }
 

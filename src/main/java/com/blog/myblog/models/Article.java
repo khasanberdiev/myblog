@@ -1,9 +1,12 @@
 package com.blog.myblog.models;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 // import java.util.Set;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -21,7 +24,8 @@ public class Article extends BaseEntity {
     private String title;
     @NotNull
     private String body;
-    private String tags;
+    @ElementCollection
+    private List <String> tags =new ArrayList<>();
     
     @ManyToOne(fetch=FetchType.LAZY, optional=false)
     @JoinColumn(name="author_id", nullable = false)
@@ -37,7 +41,7 @@ public class Article extends BaseEntity {
     
 
    
-    public Article(Long id, LocalDate created,  int status, String title, String body, String tags, Author author, Category category) {
+    public Article(Long id, LocalDate created,  int status, String title, String body, List<String> tags, Author author, Category category) {
         this.title = title;
         this.body = body;
         this.tags = tags;
@@ -83,10 +87,10 @@ public class Article extends BaseEntity {
     public void setBody(String body) {
         this.body = body;
     }
-    public String getTags() {
+    public List<String> getTags() {
         return tags;
     }
-    public void setTags(String tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
   

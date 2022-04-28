@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>Author</title>
+		<meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+		<div th:insert="fragments/stylesheet::stylesheet"></div>
+	</head>
+	<script src="https://cdn.ckeditor.com/ckeditor5/27.1.0/classic/ckeditor.js"></script>
+
+
+<body>
+	<div class="wrapper">
+		<!-- main header -->
+		<div th:insert="fragments/header::header">
+		</div>
+		<!-- end main header -->
+
+		<!-- Sidebar -->
+		<div th:insert="fragments/sidebar :: sidebar"></div>		
+		<!-- End Sidebar -->
+
+		<div class="main-panel">
+			<div class="content">
+				<div th:insert="fragments/panel-header::panel-header">
+
+				</div>
+				
+				<div class="page-inner mt--5">
+					
+					
+					<div class="row row-card-no-pd">
+						<div class="col-md-12">
+							
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title">Article</h4>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-3 col-md-2">
+                <div class="nav flex-column nav-pills nav-secondary" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <a class="nav-link active show" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Main</a>
+
+                    <a class="nav-link" th:href="@{'/author/edit/' + ${author.id} }" aria-controls="v-pills-profile" aria-selected="false">Edit</a>
+                    <a class="nav-link"  href="/author/new"  aria-controls="v-pills-profile" aria-selected="false">Add Author</a>
+                    <a class="nav-link"  href="/author/"  aria-controls="v-pills-profile" aria-selected="false">Authors</a>
+                </div>
+            </div>
+            <div class="col-7 col-md-8">
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade active show" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                        <div class="form-group form-group-default">
+                            <label>ID</label>
+                            <br>
+                            [[${author.id}]] 
+                        </div>
+                        <div class="form-group form-group-default">
+                            <label>Full Name</label>
+                            <br>
+                            [[${author.firstName}]] [[${author.secondName}]]
+                        </div>
+                        <div class="form-group form-group-default">
+                            <label>Email</label>
+                            <br>
+                            [[${author.email}]]  
+                           
+                        </div>
+                        <div class="form-group form-group-default">
+                            <label>Author Info</label>
+                            <br>
+                            [[${author.authorInfo}]]
+                            
+                        </div>
+                        <div class="form-group form-group-default">
+                            <label>Created</label>
+                            <br>
+                            [[${author.created}]]
+                            
+                        </div>
+                        <div class="form-group form-group-default">
+                            <label>Status</label>
+                            <br>
+                            [[${author.status}]]
+                            
+                        </div>
+
+                    </div>
+                   
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+						</div>
+					</div>
+					
+				
+				</div>
+			</div>
+			
+
+			
+
+		</div>
+		
+	
+	</div>
+	<!--   Core JS Files   -->
+	<div th:insert="fragments/scripts::scripts">
+	</div>
+
+	
+</body>
+</html>
+

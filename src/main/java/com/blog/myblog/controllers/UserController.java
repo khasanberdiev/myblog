@@ -84,7 +84,7 @@ public class UserController {
         }
        
         userService.saveUser(user);
-        return "redirect:/user/list";
+        return "redirect:/user/view/"+user.getId();
     }
 
     @GetMapping("/edit/{id}")
@@ -102,6 +102,12 @@ public class UserController {
         }
         userService.saveUser(user);
         return "redirect:/user/list";
+    }
+
+    @GetMapping("/view/{id}")
+    public String view(Model model, @PathVariable("id") long id){
+        model.addAttribute("user", userService.findById(id));
+        return "backoffice/user/view";
     }
 
     @GetMapping("/delete/{id}")

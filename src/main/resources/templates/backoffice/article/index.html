@@ -31,10 +31,10 @@
 							<div class="card">
 								<div class="card-header">
 									<div class="d-flex align-items-center">
-										<h4 class="card-title">Add User</h4>
+										<h4 class="card-title">Add Article</h4>
 										<button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
 											<i class="fa fa-plus"></i>
-											Add User
+											Add Article
 										</button>
 									</div>
 								</div>
@@ -74,9 +74,9 @@
 													<th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 283px;"><a th:href="@{'/article/page/' + ${currentPage} + '?sortField=Id&sortDirection=' + ${reverseSortDir}+'&pageSize='+${pageSize}}">Title</a></th>
 													<th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 283px;"><a th:href="@{'/article/page/' + ${currentPage} + '?sortField=Id&sortDirection=' + ${reverseSortDir}+'&pageSize='+${pageSize}}">Author</a></th>
 													<th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 152px;"><a th:href="@{'/article/page/' + ${currentPage} + '?sortField=Id&sortDirection=' + ${reverseSortDir}+'&pageSize='+${pageSize}}">Category</a></th>
+													<th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 152px;">Created</th>
 													<th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 152px;">Status</th>
-													<th class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 152px;">Action</th>
-													<th style="width: 127px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending"><a th:href="@{'/article/page/' + ${currentPage} + '?sortField=Id&sortDirection=' + ${reverseSortDir}+'&pageSize='+${pageSize}}">Created</a></th></tr>
+													<th style="width: 127px;" class="sorting" tabindex="0" aria-controls="add-row" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending">Action</th></tr>
 					
 											</thead>
 											<tfoot>

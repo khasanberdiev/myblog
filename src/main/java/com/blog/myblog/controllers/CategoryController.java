@@ -70,7 +70,7 @@ public class CategoryController {
         }
         categoryService.saveCategory(category);
 
-        return "redirect:/category/list";
+        return "redirect:/category/view/"+category.getId();
 
     }
 
@@ -81,16 +81,11 @@ public class CategoryController {
         return "backoffice/category/categoryForm";
     }
 
-    // @PostMapping("/update/{id}")
-    // public String update(@ModelAttribute("category") Category category, 
-    //                     BindingResult result, @PathVariable("id") long id ){
-    //     if(result.hasErrors()){
-    //         category.setId(id);
-    //         return "/category/update/{id}";
-    //     }
-    //     categoryService.saveCategory(category);
-    //     return "backoffice/category/update";
-    // }
+    @GetMapping("/view/{id}")
+    public String view(Model model, @PathVariable("id") long id){
+        model.addAttribute("category", categoryService.findById(id));
+        return "backoffice/category/view";
+    }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") long id){
