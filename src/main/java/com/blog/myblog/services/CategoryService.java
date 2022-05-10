@@ -22,11 +22,24 @@ public class CategoryService {
     @Autowired
     private CategoryRespository categoryRespository;
     
-    public Page<Category> categoryPageableList(int pageNumber, int pageSize, String sortField, String sortDirection){
+    // public Page<Category> categoryPageableList(int pageNumber, int pageSize, String sortField, String sortDirection){
+    //     Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+    //         Sort.by(sortField).descending();
+    //     Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
+    //     return categoryRespository.findAll(pageable);
+    // }
+
+    public Page<Category> findByCategoryName(int pageNumber, int pageSize, String sortField, String sortDirection, String searchQuery, 
+                                                String searchFilter, String searchStatus){
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
             Sort.by(sortField).descending();
         Pageable pageable = PageRequest.of(pageNumber - 1, pageSize, sort);
-        return categoryRespository.findAll(pageable);
+      
+        if ( searchQuery==null || searchQuery.isEmpty()){
+            return categoryRespository.findAll(pageable);
+            
+        }
+        return categoryRespository.findByCategoryName(searchQuery,  pageable);
     }
 
     public List<Category> categoryList(){

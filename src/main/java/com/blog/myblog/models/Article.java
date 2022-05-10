@@ -16,13 +16,19 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.search.annotations.Field;
+import org.springframework.stereotype.Indexed;
+
 @Entity
 @Table(name="article")
+@Indexed
 public class Article extends BaseEntity {
     @NotNull
+    @Field
     @Size(min=1, max=255, message="Title length must be between 1 and 255 charachters ")
     private String title;
     @NotNull
+    @Field
     private String body;
     @ElementCollection
     private List <String> tags =new ArrayList<>();

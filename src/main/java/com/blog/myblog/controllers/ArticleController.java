@@ -2,15 +2,15 @@ package com.blog.myblog.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.blog.myblog.services.ArticleService;
 import com.blog.myblog.services.CategoryService;
 import com.blog.myblog.services.AuthorService;
@@ -22,6 +22,7 @@ import javax.validation.Valid;
 import com.blog.myblog.models.Article;
 import com.blog.myblog.models.Author;
 import com.blog.myblog.models.Category;
+// import com.blog.myblog.models.search.SearchPage;
 
 @Controller
 @RequestMapping("/article")
@@ -31,6 +32,7 @@ public class ArticleController {
 
     @Autowired
     private ArticleService articleService;
+    
 
     @Autowired
     private CategoryService categoryService;
@@ -38,18 +40,41 @@ public class ArticleController {
     @Autowired
     private AuthorService authorService;
 
-    @GetMapping("/")
-    public String index(Model model){
-        return sortedIndexPage(model, 1, 5, "id", "desc");
+    // @Autowired
+    // private SearchPage searchPage;
+
+    @GetMapping({"/list", ""})
+    public String index(Model model, String searchQuery, String searchFilter, String searchStatus){
+        return sortedIndexPage(model, 1, 5, "id", "desc", searchQuery, searchFilter, searchStatus);
     }
 
     @GetMapping("/page/{pageNumber}")
-    public String sortedIndexPage(Model model, @PathVariable("pageNumber") int pageNumber, @Param("pageSize") int pageSize, @Param("sortField") String sortField, @Param("sortDirection") String sortDirection){
+    public String sortedIndexPage(Model model,
+                                   @PathVariable("pageNumber") int pageNumber,
+                                   @RequestParam("pageSize") int pageSize, 
+                                   @RequestParam("sortField") String sortField,
+                                   @RequestParam("sortDirection") String sortDirection,
+                                   @RequestParam("searchQuery") String searchQuery,
+                                   @RequestParam("searchFilter") String searchFilter,
+                                   @RequestParam("searchStatus") String searchStatus  
+
+                                   ){
         
-        Page<Article> page=articleService.articlePageableList(pageNumber, pageSize, sortField, sortDirection);
+        // searchPage.setPageNumber(pageNumber);
+        // searchPage.setPageSize(pageSize);
+        // searchPage.setSortBy(sortField);
+        // searchPage.se
+        Page<Article> page=articleService.articleSearchPageableList(pageNumber,
+                                                                    pageSize, 
+                                                                    sortField,
+                                                                    sortDirection, 
+                                                                    searchQuery);
         List<Article> articles=page.getContent();
 
         model.addAttribute("articles", articles);
+        model.addAttribute("searchQuery", searchQuery);
+        model.addAttribute("searchFilter",searchFilter);
+        model.addAttribute("searchStatus",searchStatus);
         model.addAttribute("currentPage", pageNumber);
         model.addAttribute("totalPages", page.getTotalPages());
         model.addAttribute("pageSize", pageSize);
