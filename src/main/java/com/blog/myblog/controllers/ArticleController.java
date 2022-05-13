@@ -22,13 +22,11 @@ import javax.validation.Valid;
 import com.blog.myblog.models.Article;
 import com.blog.myblog.models.Author;
 import com.blog.myblog.models.Category;
-// import com.blog.myblog.models.search.SearchPage;
 
 @Controller
 @RequestMapping("/article")
 public class ArticleController {
 
-    // private final String title="Title";
 
     @Autowired
     private ArticleService articleService;
@@ -40,9 +38,7 @@ public class ArticleController {
     @Autowired
     private AuthorService authorService;
 
-    // @Autowired
-    // private SearchPage searchPage;
-
+  
     @GetMapping({"/list", ""})
     public String index(Model model, String searchQuery, String searchFilter, String searchStatus){
         return sortedIndexPage(model, 1, 5, "id", "desc", searchQuery, searchFilter, searchStatus);
@@ -60,15 +56,14 @@ public class ArticleController {
 
                                    ){
         
-        // searchPage.setPageNumber(pageNumber);
-        // searchPage.setPageSize(pageSize);
-        // searchPage.setSortBy(sortField);
-        // searchPage.se
+      
         Page<Article> page=articleService.articleSearchPageableList(pageNumber,
                                                                     pageSize, 
                                                                     sortField,
                                                                     sortDirection, 
-                                                                    searchQuery);
+                                                                    searchQuery,
+                                                                    searchFilter,
+                                                                    searchStatus);
         List<Article> articles=page.getContent();
 
         model.addAttribute("articles", articles);

@@ -6,7 +6,8 @@ import java.util.Optional;
 import com.blog.myblog.exceptions.NotFoundException;
 import com.blog.myblog.models.Article;
 import com.blog.myblog.repositories.ArticleRepository;
-import com.blog.myblog.repositories.ArticleSpecification;
+// import com.blog.myblog.repositories.ArticleSpecification;
+// import com.blog.myblog.repositories.ArticleSpecification;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,7 +15,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
+// import org.springframework.data.jpa.domain.Specification;
+// import org.springframework.data.jpa.domain.Specification;
 
 @Service
 public class ArticleService {
@@ -22,7 +24,10 @@ public class ArticleService {
     private ArticleRepository articleRepository;
 
     @Autowired
-    private ArticleSpecification articleSpecification;
+    private CategoryService categoryService;
+
+    @Autowired 
+    private AuthorService authorService;
 
 
     // public Page<Article> articlePageableList(int pageNumber, int pageSize, String sortField, String sortDirection){
@@ -32,14 +37,34 @@ public class ArticleService {
     //     return articleRepository.findAll(pageable);
     // }
 
-    public Page<Article> articleSearchPageableList(int pageNumber, int pageSize, String sortField, String sortDirection, 
-                                                    String searchQuery){
+    public Page<Article> articleSearchPageableList(int pageNumber, 
+                                                    int pageSize, 
+                                                    String sortField, 
+                                                    String sortDirection, 
+                                                    String searchQuery,
+                                                    String searchFilter,
+                                                    String searchStatus){
         Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
             Sort.by(sortField).descending();
         Pageable pageable  = PageRequest.of(pageNumber - 1, pageSize, sort);
-        Specification<Article> spec=articleSpecification.getArticles(searchQuery);
-        articleRepository.findAll(spec, pageable);
-        return articleRepository.findAll(spec, pageable);
+        // Specification<Article> spec=articleSpecification.getArticles(searchQuery, searchFilter, searchStatus);
+        
+        String title="";
+        String body ="";
+        // if(!searchFilter==null && !searchFilter.isEmpty()){
+
+        // }
+        if(searchFilter!=null && !searchFilter.isEmpty() && searchFilter.equals("title")){
+            title=searchQuery;
+            // return articleRepository.findByTitleAndStatus(searchQuery, searchStatus, pageable );
+        }
+        if(searchFilter!=null && !searchFilter.isEmpty() && searchFilter.equals("body")){
+            body=searchQuery;
+            // return articleRepository.findByBodyAndStatus(searchQuery, searchStatus, pageable );
+        }
+        return articleRepository.findByTitleAndBodyAndStatus(title, body, searchStatus, pageable );
+       
+
     }
     public List<Article> articleList(){
         return (List<Article>) articleRepository.findAll();
@@ -62,6 +87,16 @@ public class ArticleService {
 
         articleRepository.save(article);
     }
+    
+    public void fillArticle(){
+        
+        authorService.fillAuthor();
+        categoryService.fillCategory();
+        
+        
+    }
+
+   
 
 
     

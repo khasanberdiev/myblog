@@ -29,6 +29,7 @@ public class AuthorController {
 
     @GetMapping({"/list", "/"})
     public String index(Model model){
+        authorService.fillAuthor();
         return sortedIndexPage(model, 1, 2, "id", "desc");
     }
 

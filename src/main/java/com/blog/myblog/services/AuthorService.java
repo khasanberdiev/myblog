@@ -47,6 +47,15 @@ public class AuthorService {
     public void deleteById(Long id){
         authorRepository.deleteById(id);
     }
+
+    public Long fillAuthor() {
+        Author author=new Author();
+        author.setFirstName("firstName");
+        author.setEmail("email@dfg.fg");
+        author.setSecondName("secondName");
+        authorRepository.save(author);
+        return author.getId();
+    }
     
     
 }

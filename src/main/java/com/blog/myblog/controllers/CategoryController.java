@@ -37,6 +37,7 @@ public class CategoryController {
     
     @GetMapping("/list")
     public String index(String searchQuery, String searchFilter, String searchStatus, Model model){
+        categoryService.fillCategory();
 
         return sortedIndexPage(model, 1,  "id", "desc", 2, searchQuery, searchFilter, searchStatus);
     }

@@ -56,6 +56,8 @@
 													<option value="">Search By</option>
 													<option value="title">Title</option>
 													<option value="body" >Article</option>
+													<!-- <option th:each="c : ${T(com.blog.myblog.models.ArticleSearchDropDown.values()}" th:value="${c.name()}" th:text="${c.name()}"></option> -->
+													
 													
 													
 												</select>
@@ -64,8 +66,8 @@
 												
 												<select name="searchStatus" class="form-control form-control-lg" id="largeSelect">
 													<option value="">Status</option>
-													<option value="active">Active</option>
-													<option value="not_active">Not Active</option>
+													<option th:each="c : ${T(com.blog.myblog.models.Status).values()}" th:value="${c.name()}" th:text="${c.name()}"></option>
+													
 													
 												</select>
 											</div>

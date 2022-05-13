@@ -43,6 +43,7 @@ public class CategoryService {
     }
 
     public List<Category> categoryList(){
+        
         return (List<Category>) categoryRespository.findAll();
     }
 
@@ -61,6 +62,15 @@ public class CategoryService {
         }
         return categoryFindById.get();
 
+    }
+    public Long fillCategory(){
+        Category category=new Category();
+        category.setCategoryName("categoryName");
+        category.setCategoryDescription("categoryDescription");
+        categoryRespository.save(category);
+        return category.getId();
+        
+        
     }
 
     

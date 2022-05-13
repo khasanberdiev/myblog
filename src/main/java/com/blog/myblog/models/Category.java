@@ -35,6 +35,8 @@ public class Category extends BaseEntity{
         this.articles = articles;
     }
     public Category(){
+        
+      
 
     }
 
