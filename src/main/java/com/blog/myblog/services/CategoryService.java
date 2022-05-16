@@ -47,6 +47,10 @@ public class CategoryService {
         return (List<Category>) categoryRespository.findAll();
     }
 
+    // public Integer categoryCountById(Long category_id){
+    //     return categoryRespository.countById(category_id);
+    // }
+
    
     public void deleteCategoryById(Long id){
         categoryRespository.deleteById(id);

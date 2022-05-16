@@ -29,6 +29,9 @@ public class ArticleService {
     @Autowired 
     private AuthorService authorService;
 
+    private final static String SEARCH_STATUS="active";
+    private final static String SORT_FIELD="id";
+
 
     // public Page<Article> articlePageableList(int pageNumber, int pageSize, String sortField, String sortDirection){
     //     Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
@@ -68,6 +71,22 @@ public class ArticleService {
     }
     public List<Article> articleList(){
         return (List<Article>) articleRepository.findAll();
+    }
+
+    public Page<Article> activeArticleList( int pageNumber, 
+                                            int pageSize, 
+                                            String searchQuery, 
+                                            Integer filterByCategory){
+
+        Sort sort = Sort.by(SORT_FIELD).descending();
+        Pageable pageable  = PageRequest.of(pageNumber - 1, pageSize, sort);
+
+        return (Page<Article>) articleRepository.findByTitleAndStatus(searchQuery, SEARCH_STATUS, filterByCategory, pageable);
+    }
+
+    public List<Article> getTopArticles(){
+        List<Article> articles=articleRepository.findAll();
+        return articles;
     }
 
     public Article findById(Long id){

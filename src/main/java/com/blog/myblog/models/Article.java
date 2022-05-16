@@ -44,16 +44,21 @@ public class Article extends BaseEntity {
     @ManyToOne(fetch=FetchType.LAZY, optional=false)
     @JoinColumn(name="category_id", nullable = false)
     private Category category;
+
+    private int viewCount;
     
 
    
-    public Article(Long id, LocalDate created,  int status, String title, String body, List<String> tags, Author author, Category category) {
+    
+
+    public Article(Long id, LocalDate created,  int status, String title, String body, List<String> tags, Author author, Category category, int viewCount) {
         this.title = title;
         this.body = body;
         this.tags = tags;
         this.author = author;
         // this.comment = comment;
         this.category = category;
+        this.viewCount=viewCount;
     }
 
     public Article(){
@@ -61,6 +66,14 @@ public class Article extends BaseEntity {
     }
 
     
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
     public Set<Comment> getComment() {
         return comment;
     }

@@ -5,11 +5,15 @@
            
             <h3 class="sidebar-heading">Categories</h3>
             <ul class="categories">
-            <li><a href="#">Fashion <span>(6)</span></a></li>
-            <li><a href="#">Technology <span>(8)</span></a></li>
-            <li><a href="#">Travel <span>(2)</span></a></li>
-            <li><a href="#">Food <span>(2)</span></a></li>
-            <li><a href="#">Photography <span>(7)</span></a></li>
+                
+            <th:block th:each="cat:${categories}">
+                <li><a th:href="@{'/page/' + ${currentPage}+ '?pageSize=' + ${pageSize} + '&searchQuery=' + ${searchQuery}+'&filterByCategory='+${cat.id}}">[[${cat.categoryName}]]
+                    <!-- <span th:text="${T(com.blog.myblog.controllers.MainController).findCategoryCount()}">value</span>  -->
+                    <span>
+                         <!-- <div th:text=”${T(com.blog.myblog.controllers.MainController).findCategoryCount()}”></div> -->
+                        </span></a></li>
+            </th:block>
+            
           </ul>
           </div>
     </body>
