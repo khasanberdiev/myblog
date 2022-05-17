@@ -2,18 +2,22 @@ package com.blog.myblog.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.blog.myblog.models.Article;
-
-
+import com.blog.myblog.models.Subscribe;
 import com.blog.myblog.services.ArticleService;
 import com.blog.myblog.services.CategoryService;
+import com.blog.myblog.services.SubscribeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -27,11 +31,14 @@ public class MainController{
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private SubscribeService subscribeService;
+
     private final static int PAGE_NUMBER=1;
     private final static int PAGE_SIZE=2;
 
 
-    @GetMapping("")
+    @GetMapping({"","/list"})
     public String index(Model model, String searchQuery, Integer filterByCategory ){
 
         return pagedIndex(model, PAGE_NUMBER, PAGE_SIZE, searchQuery, filterByCategory);
@@ -48,6 +55,7 @@ public class MainController{
         List<Article> articleList= page.getContent();
         List<Article> topArticles=articleService.getTopArticles();
 
+        model.addAttribute("subscribe", new Subscribe());
         model.addAttribute("topArticles", topArticles);
         model.addAttribute("categories", categoryService.categoryList());
         model.addAttribute("articles", articleList);
@@ -57,6 +65,12 @@ public class MainController{
         model.addAttribute("pageSize", pageSize);
         model.addAttribute("totalElements", page.getTotalElements());
         return "frontoffice/main/index";
+    }
+
+    @PostMapping("/subscribe")
+    public String subscribe(@ModelAttribute @Valid Subscribe subscribe){
+        subscribeService.save(subscribe);
+        return "redirect:/";
     }
 
     @GetMapping("/view/{id}")
