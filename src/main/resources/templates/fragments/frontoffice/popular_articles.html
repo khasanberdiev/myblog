@@ -10,8 +10,9 @@
 	                <div class="text">
 	                  <h3 class="heading"><a href="#">[[${toparticle.title}]]</a></h3>
 	                  <div class="meta">
-	                    <div><a href="#"><span class="icon-calendar"></span> June 28, 2019</a></div>
-						<div><a href="#"><span class="icon-calendar"></span> [[${toparticle.created}]]</a></div>
+	                    
+						<div><a href="#"><span class="icon-calendar"></span> <span th:text="${#temporals.format(toparticle.created, 'MMMM dd, yyyy', new java.util.Locale('en', 'EN'))}"></span>
+							</a></div>
 	                    <div><a href="#"><span class="icon-person"></span> [[${toparticle.author.firstName}]] [[${toparticle.author.secondName}]]</a></div>
 	                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
 	                  </div>

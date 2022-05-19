@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import com.blog.myblog.exceptions.NotFoundException;
 import com.blog.myblog.models.Article;
+import com.blog.myblog.models.custom.ArticleArchive;
+import com.blog.myblog.models.custom.CategoryCountInterface;
+// import com.blog.myblog.models.CategoryCount;
 import com.blog.myblog.repositories.ArticleRepository;
 // import com.blog.myblog.repositories.ArticleSpecification;
 // import com.blog.myblog.repositories.ArticleSpecification;
@@ -89,6 +92,14 @@ public class ArticleService {
     public List<Article> getTopArticles(){
         List<Article> articles=articleRepository.findAll();
         return articles;
+    }
+
+    public List<CategoryCountInterface> getCategoryAndCount(){
+        return (List<CategoryCountInterface>) articleRepository.getCategoryAndCount();
+    }
+
+    public List<ArticleArchive> articleArchive(){
+        return (List<ArticleArchive>) articleRepository.getArticleArchive();
     }
 
     public Article findById(Long id){

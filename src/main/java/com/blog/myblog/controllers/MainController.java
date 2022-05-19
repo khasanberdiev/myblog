@@ -6,8 +6,10 @@ import javax.validation.Valid;
 
 import com.blog.myblog.models.Article;
 import com.blog.myblog.models.Subscribe;
+import com.blog.myblog.models.custom.ArticleArchive;
+import com.blog.myblog.models.custom.CategoryCountInterface;
 import com.blog.myblog.services.ArticleService;
-import com.blog.myblog.services.CategoryService;
+// import com.blog.myblog.services.CategoryService;
 import com.blog.myblog.services.SubscribeService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +30,8 @@ public class MainController{
     @Autowired
     private ArticleService articleService;
 
-    @Autowired
-    private CategoryService categoryService;
+    // @Autowired
+    // private CategoryService categoryService;
 
     @Autowired
     private SubscribeService subscribeService;
@@ -54,10 +56,19 @@ public class MainController{
         Page<Article> page=articleService.activeArticleList(pageNumber, pageSize, searchQuery, filterByCategory);
         List<Article> articleList= page.getContent();
         List<Article> topArticles=articleService.getTopArticles();
+        List<CategoryCountInterface> categoryAndCount=articleService.getCategoryAndCount();
+        List<ArticleArchive> articleByMonth=articleService.articleArchive();
+        for(ArticleArchive i: articleByMonth){
+            System.out.println("testing");
+            System.out.println(i.getMonth());
+            System.out.println(i.getArticleMonthlyCount());
+        }
+      
 
         model.addAttribute("subscribe", new Subscribe());
         model.addAttribute("topArticles", topArticles);
-        model.addAttribute("categories", categoryService.categoryList());
+        model.addAttribute("articleByMonth", articleByMonth);
+        model.addAttribute("categories", categoryAndCount);
         model.addAttribute("articles", articleList);
         model.addAttribute("searchQuery", searchQuery);
         model.addAttribute("currentPage", pageNumber);
@@ -82,6 +93,8 @@ public class MainController{
         model.addAttribute("article", article);
         return "frontoffice/main/article";
     }
+
+
 
     @GetMapping({"about", "aboutus", "aboutUs"})
     public String aboutUs(){

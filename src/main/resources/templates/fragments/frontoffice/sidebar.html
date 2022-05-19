@@ -7,10 +7,10 @@
             <ul class="categories">
                 
             <th:block th:each="cat:${categories}">
-                <li><a th:href="@{'/page/' + ${currentPage}+ '?pageSize=' + ${pageSize} + '&searchQuery=' + ${searchQuery}+'&filterByCategory='+${cat.id}}">[[${cat.categoryName}]]
+                <li><a th:href="@{'/page/' + ${currentPage}+ '?pageSize=' + ${pageSize} + '&searchQuery=' + ${searchQuery}+'&filterByCategory='+${cat.categoryId}}">[[${cat.getCategoryName}]]
                     <!-- <span th:text="${T(com.blog.myblog.controllers.MainController).findCategoryCount()}">value</span>  -->
                     <span>
-                         <!-- <div th:text=”${T(com.blog.myblog.controllers.MainController).findCategoryCount()}”></div> -->
+                      ([[${cat.getCategoryCount}]])
                         </span></a></li>
             </th:block>
             
